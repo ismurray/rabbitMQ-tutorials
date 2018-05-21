@@ -9,7 +9,7 @@ require 'bunny'
 # broker on the local machine with all default settings.
 # If we wanted to connect to a broker on a different machine we'd simply specify
 # its name or IP address using the :hostname option:
-connection = Bunny.new(hostname: 'rabbit.local')
+connection = Bunny.new(hostname: 'localhost')
 connection.start
 
 # Next we create a channel, which is where most of the API for getting things
