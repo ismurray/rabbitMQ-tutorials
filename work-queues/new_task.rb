@@ -6,7 +6,7 @@ connection.start
 
 channel = connection.create_channel
 
-queue = channel.queue('hello')
+queue = channel.queue('task_queue', durable: true)
 
 # We will slightly modify the send.rb code from our previous example,
 # to allow arbitrary messages to be sent from the command line.

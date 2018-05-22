@@ -5,7 +5,7 @@ connection = Bunny.new
 connection.start
 
 channel = connection.create_channel
-queue = channel.queue('hello')
+queue = channel.queue('task_queue', durable: true)
 
 # Our old receive.rb script also requires some changes: it needs to fake a
 # second of work for every dot in the message body.
