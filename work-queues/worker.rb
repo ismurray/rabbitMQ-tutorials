@@ -7,6 +7,13 @@ connection.start
 channel = connection.create_channel
 queue = channel.queue('task_queue', durable: true)
 
+# we can use the prefetch method with the value of 1. This tells RabbitMQ not to
+# give more than one message to a worker at a time. Or, in other words, don't
+# dispatch a new message to a worker until it has processed and acknowledged the
+# previous one. Instead, it will dispatch it to the next worker that is not
+# still busy.
+channel.prefetch(1)
+
 # Our old receive.rb script also requires some changes: it needs to fake a
 # second of work for every dot in the message body.
 # Message acknowledgments are turned off by default. It's time to turn them on
@@ -29,8 +36,3 @@ rescue Interrupt => _
 
   exit(0)
 end
-
-# ruby new_task.rb First message....
-# ruby new_task.rb Second message....
-# ruby new_task.rb Third message....
-# ruby new_task.rb Fourth message....
